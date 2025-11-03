@@ -72,3 +72,13 @@
         padding-top: 50px;
     }
 }
+
+/*------- Navbar -------*/
+
+.navbar {
+    display: grid;
+    gap: 5px;
+    text-align: center;
+    grid-template-columns: 1fr;
+    
+}
