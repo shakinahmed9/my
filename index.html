@@ -1,95 +1,77 @@
-<!DOCTYPE html>
+<!-- ===== File: index.html ===== -->
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="/style.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>App Developer — Portfolio</title>
+<link rel="stylesheet" href="styles.css">
 </head>
-<body class="">
-    
-<div class="container">
-
-    <!-- ------------ Navbar ---------------- -->>
-
-    <nav class="navbar">
-            <div class="box theme">
-                <div class="item">
-                    <ion-icon name="apps-outline"></ion-icon>
-                </div>
-            </div>
-    <div class="box nav">
-        <div class="item active">
-            <a href="#about">
-                <ion-icon name="person-circle-outline"></ion-icon>
-                <p>about</p>
-            </a>
-            <div class="divider rtl"></div>
-        </div>
-        <div class="item">
-            <a href="#resume">
-                <ion-icon name="file-tray-stacked-outline"></ion-icon>
-                <p>resume</p>
-            </a>
-            <div class="divider rtl"></div>
-        </div>
-        <div class="item">
-            <a href="#projects">
-                <ion-icon name="layers-outline"></ion-icon>
-                <p>projects</p>
-            </a>
-            <div class="divider rtl"></div>
-        </div>
-        <div class="item">
-            <a href="#blogs">
-                <ion-icon name="reader-outline"></ion-icon>
-                <p>blogs</p>
-            </a>
-            <div class="divider rtl"></div>
-        </div>
-        <div class="item">
-            <a href="#contact">
-                <ion-icon name="paper-plane-outline"></ion-icon>
-                <p>contact</p>
-            </a>
-            <div class="divider rtl"></div>
-        </div>
-    </div>
-    </nav>
-
-    <!-- ---------------- Profile ------------------ -->>
-
-    <div class="box profile">profile
-
-            <img class="header" src="/pfp.jpg" alt="">
-            <img class="img" src="/dp.jpg" alt="">
-            <h2> Shakin Ahmed </h2>
-            <p class="colored">A passionate web developer & creative editor dedicated to crafting clean, interactive experiences and powerful visuals that inspire connection.</p>
-            
-            <ul>
-                <li><a href="#"><ion-icon name="logo-github"></ion-icon></a></li>
-                <li><a href="#"><ion-icon name="logo-facebook"></ion-icon></a></li>
-                <li><a href="#"><ion-icon name="logo-facebook"></ion-icon></a></li>
-                <li><a href="#"><ion-icon name="logo-discord"></ion-icon></a></li>
-            </ul>
-
-            <div class="footer">
-                <div class="divider rtl"></div>
-                <table>
-                    <tr>
-                        <td><a href="#">My Resume <ion-icon name="file-tray-full-outline"></ion-icon></a></td>
-                        <td><a href="#">Contact Me <ion-icon name="call-outline"></ion-icon></a></td>
-                    </tr>
-                </table>
-            </div>
+<body>
+<header class="site-header">
+<nav class="topbar">
+<div class="logo">App<span>Dev</span></div>
+<ul class="nav-links">
+<li><a href="#home">Home</a></li>
+<li><a href="#projects">Projects</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#contact" class="btn">Contact</a></li>
+</ul>
+<button class="menu-toggle" aria-label="menu">☰</button>
+</nav>
+</header>
 
 
-    </div>
-
-    <div class="box content">content</div>
-
+<main class="container">
+<section id="home" class="hero">
+<div class="hero-left">
+<h1>Hi, I'm <strong>App Developer</strong></h1>
+<p>Mobile &amp; web app developer — building clean, responsive experiences.</p>
+<div class="hero-actions">
+<a href="#projects" class="btn">See Projects</a>
+<a href="#contact" class="btn ghost">Hire me</a>
 </div>
+</div>
+<div class="hero-right">
+<div class="card-profile">
+<div class="profile-header"></div>
+<img class="profile-avatar" src="https://via.placeholder.com/140" alt="avatar">
+<h3>Ryan CV — App Developer</h3>
+<p class="muted">React · Flutter · Node</p>
+<table class="info-table">
+<tr><td><strong>Location</strong></td><td>Dhaka, Bangladesh</td></tr>
+<tr><td><strong>Experience</strong></td><td>3+ years</td></tr>
+</table>
+</div>
+</div>
+</section>
 
-</body>
-</html>
+
+<section id="projects" class="projects">
+<h2>Projects</h2>
+<div class="grid">
+<article class="project-card"> <h3>Project A</h3> <p>App description</p> </article>
+<article class="project-card"> <h3>Project B</h3> <p>App description</p> </article>
+<article class="project-card"> <h3>Project C</h3> <p>App description</p> </article>
+</div>
+</section>
+
+
+<section id="about" class="about">
+<h2>About</h2>
+<p>I build apps and APIs. I love clean UI and fast performance.</p>
+</section>
+
+
+<section id="contact" class="contact">
+<h2>Contact</h2>
+<div class="contact-wrap">
+<form id="contactForm" class="contact-form">
+<label>Name<input type="text" name="name" required></label>
+<label>Email<input type="email" name="email" required></label>
+<label>Subject<input type="text" name="subject"></label>
+<label>Message<textarea name="message" rows="6" required></textarea></label>
+<button type="submit" class="btn">Send Message</button>
+<p id="formStatus" class="muted"></p>
+</form>
+
