@@ -1,27 +1,32 @@
-<!-- ===== File: script.js ===== -->
-// Replace this with your Discord webhook URL
+
+
+/* ========================= script.js ========================= */
 const WEBHOOK_URL = 'YOUR_DISCORD_WEBHOOK_URL_HERE';
 
 
 document.getElementById('year').textContent = new Date().getFullYear();
 
 
-// mobile menu toggle
-const menuToggle = document.querySelector('.menu-toggle');
-menuToggle?.addEventListener('click', ()=>{
-const nav = document.querySelector('.nav-links');
-if(nav) nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+const menuBtn = document.querySelector('.menu-btn');
+const navLinks = document.querySelector('.nav-links');
+menuBtn.addEventListener('click', () => {
+navLinks.classList.toggle('open');
+if (navLinks.style.display === 'flex') {
+navLinks.style.display = 'none';
+} else {
+navLinks.style.display = 'flex';
+navLinks.style.flexDirection = 'column';
+}
 });
 
 
-// Contact form submit -> Discord webhook
 const form = document.getElementById('contactForm');
-const statusEl = document.getElementById('formStatus');
+const status = document.getElementById('formStatus');
 
 
-form?.addEventListener('submit', async (e)=>{
+form.addEventListener('submit', async (e) => {
 e.preventDefault();
-statusEl.textContent = 'Sending...';
+status.textContent = 'Sending...';
 
 
 const fd = new FormData(form);
@@ -33,18 +38,10 @@ message: fd.get('message')
 };
 
 
-// Basic validation
-if(!data.name || !data.email || !data.message){
-statusEl.textContent = 'Please fill the required fields.';
-return;
-}
+const content = `**New Message**\n**Name:** ${data.name}\n**Email:** ${data.email}\n**Subject:** ${data.subject}\n**Message:** ${data.message}`;
 
 
-// Build a readable message for Discord
-const content = `**New contact message**\n**Name:** ${escapeText(data.name)}\n**Email:** ${escapeText(data.email)}\n**Subject:** ${escapeText(data.subject || '-') }\n**Message:** ${escapeText(data.message)}`;
-
-
-try{
+try {
 const res = await fetch(WEBHOOK_URL, {
 method: 'POST',
 headers: { 'Content-Type': 'application/json' },
@@ -52,21 +49,13 @@ body: JSON.stringify({ content })
 });
 
 
-if(res.ok){
-statusEl.textContent = 'Message sent — check Discord.';
+if (res.ok) {
+status.textContent = 'Message sent successfully!';
 form.reset();
 } else {
-statusEl.textContent = 'Failed to send (check webhook URL).';
-console.error('discord webhook error', res.status, await res.text());
+status.textContent = 'Failed to send message.';
 }
-} catch(err){
-statusEl.textContent = 'Network error sending message.';
-console.error(err);
+} catch (err) {
+status.textContent = 'Network error. Please try again later.';
 }
 });
-
-
-function escapeText(str){
-if(!str) return '';
-return String(str).replace(/`/g, '\`').replace(/@/g, '@');
-}
