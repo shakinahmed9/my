@@ -1,20 +1,20 @@
 * {
  margin: 0;
  padding: 0;
- transition: color .1s; background-color: .5s;
+ transition: color .1s, background-color .5s;
  color: inherit;
  text-decoration: inherit;
  box-sizing: border-box;
 }
 
- body {
+body {
     --primary-color: #4fC6CE;
     --accent-01:#DBDBDB;
     --accent-02:#98B1BA;
     --accent-03:#26333A;
     --accent-04:#1A2328;
 
-    font-family: calibri, sanse-serif;
+    font-family: calibri, sans-serif;
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -24,7 +24,7 @@
     color: var(--accent-01);
 }
 
- body.light {
+body.light {
     --primary-color: #4fC6CE;
     --accent-01:#1D3A41;
     --accent-02:#225B60;
@@ -155,8 +155,6 @@
     color: var(--accent-04);
 }
 
-
-
 /* ============Responsiveness================== */
 
 /* Desktop */
@@ -169,7 +167,7 @@
 /* Tablet */
 @media screen and (width >= 768px) and (width <= 1023px) {
     .container {
-        grid-template-columns: 85px 1fr;]
+        grid-template-columns: 85px 1fr;
         max-width: 650px;
     }
 }
@@ -184,11 +182,7 @@
     }
 }
 
-
-
-
-
-/*====================/*
+/*====================*/
 .divider {
     height: 2px;
     width: 100%;
@@ -196,8 +190,9 @@
 }
 
 .ltr {
-    background: radial-gradient(ellipse at left, var(--accent-02) -70%, transparent 80&);
+    background: radial-gradient(ellipse at left, var(--accent-02) -70%, transparent 80%);
 }
+
 .rtl {
-    background: radial-gradient(ellipse at right, var(--accent-02) -70%, transparent 80&);
+    background: radial-gradient(ellipse at right, var(--accent-02) -70%, transparent 80%);
 }
