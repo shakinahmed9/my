@@ -1,61 +1,84 @@
+/* ========================= script.js ========================= */
+const WEBHOOK_URL = 'YOUR_DISCORD_WEBHOOK_URL_HERE'; // <-- replace this
 
 
-/* ========================= script ========================= */
-const WEBHOOK_URL = 'YOUR_DISCORD_WEBHOOK_URL_HERE';
-
-
+// small helpers
 document.getElementById('year').textContent = new Date().getFullYear();
 
 
-const menuBtn = document.querySelector('.menu-btn');
+// burger menu for mobile
+const burger = document.querySelector('.burger');
 const navLinks = document.querySelector('.nav-links');
-menuBtn.addEventListener('click', () => {
-navLinks.classList.toggle('open');
-if (navLinks.style.display === 'flex') {
-navLinks.style.display = 'none';
+if(burger){
+burger.addEventListener('click', ()=>{
+if(navLinks.style.display === 'flex'){
+navLinks.style.display = '';
 } else {
 navLinks.style.display = 'flex';
 navLinks.style.flexDirection = 'column';
 }
 });
+}
 
 
+// Smooth scroll for nav links
+document.querySelectorAll('.nav-links a').forEach(a => {
+a.addEventListener('click', (e) => {
+e.preventDefault();
+document.querySelectorAll('.nav-links a').forEach(x=>x.classList.remove('active'));
+a.classList.add('active');
+const target = document.querySelector(a.getAttribute('href'));
+if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+})
+});
+
+
+// Contact form -> Discord webhook
 const form = document.getElementById('contactForm');
-const status = document.getElementById('formStatus');
+const statusEl = document.getElementById('formStatus');
 
 
+if(form){
 form.addEventListener('submit', async (e) => {
 e.preventDefault();
-status.textContent = 'Sending...';
+statusEl.textContent = 'Sending...';
 
 
 const fd = new FormData(form);
-const data = {
-name: fd.get('name'),
-email: fd.get('email'),
-subject: fd.get('subject'),
-message: fd.get('message')
+const payload = {
+username: 'Contact Bot',
+content: `**New message**
+**Name:** ${escape(fd.get('name'))}
+**Email:** ${escape(fd.get('email'))}
+**Subject:** ${escape(fd.get('subject')||'-')}
+**Message:** ${escape(fd.get('message'))}`
 };
 
 
-const content = `**New Message**\n**Name:** ${data.name}\n**Email:** ${data.email}\n**Subject:** ${data.subject}\n**Message:** ${data.message}`;
-
-
-try {
+try{
 const res = await fetch(WEBHOOK_URL, {
 method: 'POST',
-headers: { 'Content-Type': 'application/json' },
-body: JSON.stringify({ content })
+headers: {'Content-Type':'application/json'},
+body: JSON.stringify(payload)
 });
 
 
-if (res.ok) {
-status.textContent = 'Message sent successfully!';
+if(res.ok){
+statusEl.textContent = 'Message sent — check your Discord.';
 form.reset();
 } else {
-status.textContent = 'Failed to send message.';
+statusEl.textContent = 'Failed to send — check webhook.';
+console.error('Webhook error', res.status);
 }
-} catch (err) {
-status.textContent = 'Network error. Please try again later.';
+} catch(err){
+statusEl.textContent = 'Network error. Try later.';
+console.error(err);
 }
 });
+}
+
+
+function escape(str){
+if(!str) return '';
+return String(str).replace(/```/g,'').replace(/@/g,'@');
+}
